@@ -77,12 +77,17 @@ watch(() => props.product, (newProduct) => {
 const handleSubmit = () => {
   emit('submit', { ...form })
   if (!props.editMode) {
-    Object.keys(form).forEach(key => {
-      form[key as keyof typeof form] = '' as any
-    })
-    form.price = 0
-    form.stock = 0
+    resetForm()
   }
+}
+
+const resetForm = () => {
+  form.name = ''
+  form.price = 0
+  form.stock = 0
+  form.category = ''
+  form.description = ''
+  form.image = ''
 }
 </script>
 

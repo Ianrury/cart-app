@@ -1,7 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { defineComponent } from 'vue'
 import HomeView from '@/views/HomeView.vue'
 import AdminView from '@/views/AdminView.vue'
-import ProductDetailView from '@/views/ProductDetailView.vue'
+
+const ProductDetailView = defineComponent({
+  props: ['id'],
+  template: `<div>Product ID: {{ id }}</div>`
+})
+
 
 const routes: RouteRecordRaw[] = [
   {

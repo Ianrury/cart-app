@@ -62,7 +62,7 @@ import { generateId, saveToLocalStorage, getFromLocalStorage, formatCurrency } f
 import ProductForm from '@/components/ProductForm.vue'
 
 const products = ref<Product[]>([])
-const editingProduct = ref<Product | null>(null)
+const editingProduct = ref<Product | undefined>(undefined)
 
 const loadProducts = () => {
   const saved = getFromLocalStorage<Product[]>('products')
@@ -116,11 +116,11 @@ const handleProductSubmit = (productData: Partial<Product>) => {
   if (editingProduct.value) {
     const index = products.value.findIndex(p => p.id === editingProduct.value!.id)
     products.value[index] = { ...editingProduct.value, ...productData }
-    editingProduct.value = null
+    editingProduct.value = undefined
   } else {
     const newProduct: Product = {
-      id: generateId(),
-      ...productData as Product
+      ...productData as Product,
+      id: generateId()
     }
     products.value.push(newProduct)
   }
@@ -132,7 +132,7 @@ const editProduct = (product: Product) => {
 }
 
 const cancelEdit = () => {
-  editingProduct.value = null
+  editingProduct.value = undefined
 }
 
 const deleteProduct = (id: string) => {
@@ -140,10 +140,6 @@ const deleteProduct = (id: string) => {
     products.value = products.value.filter(p => p.id !== id)
     saveToLocalStorage('products', products.value)
   }
-}
-
-const navigateHome = () => {
-  window.dispatchEvent(new CustomEvent('navigate', { detail: 'home' }))
 }
 
 onMounted(() => {

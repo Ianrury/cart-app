@@ -1,5 +1,3 @@
-import { Product, CartItem } from './types'
-
 export const formatCurrency = (amount: number): string => {
   return new Intl.NumberFormat('id-ID', {
     style: 'currency',
